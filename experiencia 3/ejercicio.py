@@ -1,4 +1,11 @@
 canciones=[]
+
+def eliminar_cancion(posicion:int):
+    canciones.pop(posicion)
+    print("Cancion eliminada correctamente!!")
+
+
+
 def actualiza_cancion(id_cancion:int,nombre_cancion:str,artista_cancion:str,album_cancion:str,duracion_cancion:str):
         cancion_encontrada=buscar_cancion(id_cancion)
         print(cancion_encontrada)
@@ -26,7 +33,7 @@ def buscar_cancion(idcancion:int) -> int | None:
 def validar_string(mensaje:str):
     while True:
         valor = input(mensaje)
-        if len(mensaje) < 1:
+        if len(valor) < 1:
             print("Inválido! EL largo del valor debe tener al menos 1 caracter")
         else:
             return valor
@@ -93,7 +100,20 @@ def menu():
                 artistacancion=validar_string("Ingrse el nombre del artista de la cancion: ")
                 albumcancion=validar_string("Ingresar el nombre del album de la cancion: ")
                 duracioncancion=validar_enteros_positivos("Ingrese la duracion de la cancion: ")
-                actualiza_cancion(cancion_encontrada,nombrecancion,artistacancion,albumcancion,duracioncancion)
+                actualiza_cancion(id_cancion,nombrecancion,artistacancion,albumcancion,duracioncancion)
+
+        elif opc == 4:
+            id_cancion = validar_enteros_positivos("Ingrese el id de la cancion a eliminar: ")
+            cancion_buscar = buscar_cancion(id_cancion)
+            if cancion_buscar != None:
+                eliminar_cancion(cancion_buscar)
+            else:
+                print("Cancion no encontrada!")
+
+        elif opc == 5:
+            print("Saliendo de la app!")
+            break 
+            
 
 menu()
 
