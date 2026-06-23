@@ -1,25 +1,25 @@
 canciones=[]
 
-def eliminar_cancion(posicion:int):
-    canciones.pop(posicion)
+def eliminar_cancion(posicion:int,lista_canciones:list):
+    lista_canciones.pop(posicion)
     print("Cancion eliminada correctamente!!")
 
 
 
-def actualiza_cancion(id_cancion:int,nombre_cancion:str,artista_cancion:str,album_cancion:str,duracion_cancion:str):
+def actualiza_cancion(id_cancion:int,nombre_cancion:str,artista_cancion:str,album_cancion:str,duracion_cancion:str,lista_canciones:list):
         cancion_encontrada=buscar_cancion(id_cancion)
         print(cancion_encontrada)
-        cancion=canciones[cancion_encontrada]
+        cancion=lista_canciones[cancion_encontrada]
         cancion["nombre_cancion"]=nombre_cancion
         cancion["artista_cancion"]=artista_cancion
         cancion["album_cancion"]=album_cancion
         cancion["duracion_cancion"]=duracion_cancion
         print("Cancion actualizada.")
-def mostrar_cancion():
-    if len(canciones) == 0:
+def mostrar_cancion(lista_canciones:list):
+    if len(lista_canciones) == 0:
         print("no hay canciones registradas")
     else:
-        for i in canciones:
+        for i in lista_canciones:
             print(f"nombre: {i["nombre_cancion"]} - artista:{i["artista_cancion"]} - album:{i["album_cancion"]}")
 
 def buscar_cancion(idcancion:int) -> int | None:
@@ -39,7 +39,7 @@ def validar_string(mensaje:str):
             return valor
 
         
-def agregar_cancion(idcancion:int,nombrecancion:str,artistacancion:str,albuncancion:str,duracioncancion:int):
+def agregar_cancion(idcancion:int,nombrecancion:str,artistacancion:str,albuncancion:str,duracioncancion:int,lista_cancione:list):
     diccionario={
         "id_cancion" : idcancion,
         "nombre_cancion" : nombrecancion,
@@ -47,7 +47,7 @@ def agregar_cancion(idcancion:int,nombrecancion:str,artistacancion:str,albuncanc
         "album_cancion" : albuncancion,
         "duracion_cancion" : duracioncancion
     }
-    canciones.append(diccionario)
+    lista_cancione.append(diccionario)
     print("cancion agregada correctamente ")
     
 def validar_enteros_positivos(mensaje:str):
@@ -84,12 +84,12 @@ def menu():
                 artista_cancion = validar_string("Ingrese el nombre del artista de la cancion: ")
                 album_cancion = validar_string("Ingrese el nombre del album de la cancion: ")
                 duracion_cancion = validar_enteros_positivos("Ingrese la duracion de la cancion: ")
-                agregar_cancion(id_cancion, nombre_cancion, artista_cancion,album_cancion, duracion_cancion)
+                agregar_cancion(id_cancion, nombre_cancion, artista_cancion,album_cancion, duracion_cancion,canciones)
             else:
                 print("El Id ya existe en el listado de cancion")
                 continue
         elif opc==2:
-            mostrar_cancion()
+            mostrar_cancion(canciones)
         elif opc ==3:
             id_cancion=validar_enteros_positivos("Ingrese el id de la cancion que desea actualiza: ")
             cancion_encontrada=buscar_cancion(id_cancion)
@@ -100,13 +100,13 @@ def menu():
                 artistacancion=validar_string("Ingrse el nombre del artista de la cancion: ")
                 albumcancion=validar_string("Ingresar el nombre del album de la cancion: ")
                 duracioncancion=validar_enteros_positivos("Ingrese la duracion de la cancion: ")
-                actualiza_cancion(id_cancion,nombrecancion,artistacancion,albumcancion,duracioncancion)
+                actualiza_cancion(id_cancion,nombrecancion,artistacancion,albumcancion,duracioncancion,canciones)
 
         elif opc == 4:
             id_cancion = validar_enteros_positivos("Ingrese el id de la cancion a eliminar: ")
             cancion_buscar = buscar_cancion(id_cancion)
             if cancion_buscar != None:
-                eliminar_cancion(cancion_buscar)
+                eliminar_cancion(cancion_buscar,canciones)
             else:
                 print("Cancion no encontrada!")
 
